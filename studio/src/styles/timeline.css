@@ -1,0 +1,390 @@
+/* ---------------------------------------------------------------------------
+   ScrollScore Studio — scroll timeline
+   Horizontal axis = scroll progress (0–100%), not time. That inversion is the
+   core interaction of the tool, so the ruler is labelled in percent.
+   --------------------------------------------------------------------------- */
+
+.timeline {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  background: linear-gradient(180deg, var(--ink-860), var(--ink-900));
+}
+
+.timeline__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-3);
+  padding: 8px var(--gap-4);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.timeline__title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-2);
+}
+
+.timeline__title h2 {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-mute);
+}
+
+.timeline__sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--paper-faint);
+}
+
+.timeline__actions {
+  display: flex;
+  gap: 5px;
+}
+
+/* Body is the single scroll container so gutter and canvas never desync. */
+.timeline__body {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 1fr);
+  align-content: start;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  --range-a: 0%;
+  --range-b: 100%;
+  --row-h: 27px;
+  --ruler-h: 26px;
+}
+
+/* ------------------------------- Gutter --------------------------------- */
+
+.timeline__gutter {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  padding-top: var(--ruler-h);
+  background: var(--ink-860);
+  border-right: 1px solid var(--line-soft);
+}
+
+.gutter-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  height: var(--row-h);
+  padding: 0 10px 0 12px;
+  border-bottom: 1px solid rgba(58, 46, 37, 0.4);
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.gutter-row:hover {
+  background: rgba(227, 168, 87, 0.05);
+}
+
+.gutter-row.is-active {
+  background: rgba(227, 168, 87, 0.09);
+}
+
+.gutter-row__name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--paper-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gutter-row__swatch {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--amber);
+}
+
+.gutter-row[data-kind="transform"] .gutter-row__swatch {
+  background: var(--amber);
+}
+
+.gutter-row[data-kind="opacity"] .gutter-row__swatch {
+  background: var(--sage);
+}
+
+.gutter-row[data-kind="filter"] .gutter-row__swatch {
+  background: var(--terracotta-soft);
+}
+
+.gutter-row[data-kind="clip"] .gutter-row__swatch {
+  background: var(--blue);
+}
+
+.gutter-row__value {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--paper-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gutter-row__remove {
+  margin-left: auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  display: grid;
+  place-items: center;
+  color: var(--paper-faint);
+  opacity: 0;
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+.gutter-row:hover .gutter-row__remove {
+  opacity: 1;
+}
+
+.gutter-row__remove:hover {
+  color: var(--terracotta-soft);
+}
+
+.gutter-empty {
+  padding: 18px 12px;
+  font-size: 11px;
+  color: var(--paper-faint);
+  line-height: 1.6;
+}
+
+/* -------------------------------- Canvas -------------------------------- */
+
+.timeline__canvas {
+  position: relative;
+  min-width: 0;
+}
+
+.timeline__ruler {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  height: var(--ruler-h);
+  background: linear-gradient(180deg, var(--ink-820), var(--ink-860));
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.ruler-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(246, 237, 225, 0.07);
+}
+
+.ruler-tick--major {
+  background: rgba(246, 237, 225, 0.16);
+}
+
+.ruler-label {
+  position: absolute;
+  top: 6px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--paper-faint);
+  transform: translateX(4px);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.ruler-range {
+  position: absolute;
+  left: var(--range-a);
+  right: calc(100% - var(--range-b));
+  bottom: 3px;
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(227, 168, 87, 0.85), rgba(201, 97, 60, 0.85));
+}
+
+.timeline__tracks {
+  position: relative;
+}
+
+.track-row {
+  position: relative;
+  height: var(--row-h);
+  border-bottom: 1px solid rgba(58, 46, 37, 0.4);
+  background-image: linear-gradient(
+      90deg,
+      transparent 0,
+      transparent var(--range-a),
+      rgba(227, 168, 87, 0.045) var(--range-a),
+      rgba(227, 168, 87, 0.045) var(--range-b),
+      transparent var(--range-b)
+    ),
+    linear-gradient(90deg, rgba(246, 237, 225, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 25% 100%;
+  cursor: crosshair;
+}
+
+.track-row:hover {
+  background-color: rgba(246, 237, 225, 0.018);
+}
+
+.track-row.is-active {
+  background-color: rgba(227, 168, 87, 0.05);
+}
+
+/* Segment connecting two keys */
+.track-seg {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: rgba(227, 168, 87, 0.28);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Keyframe diamond */
+.key {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  margin-top: -5.5px;
+  background: var(--ink-860);
+  border: 1.5px solid var(--amber);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+  cursor: grab;
+  z-index: 2;
+  padding: 0;
+}
+
+.key:hover {
+  background: rgba(227, 168, 87, 0.35);
+  transform: rotate(45deg) scale(1.16);
+}
+
+.key.is-selected {
+  background: var(--amber);
+  border-color: var(--amber-soft);
+}
+
+.key.is-dragging {
+  cursor: grabbing;
+  transform: rotate(45deg) scale(1.24);
+  box-shadow: 0 0 0 4px rgba(227, 168, 87, 0.16);
+}
+
+.key--first,
+.key--last {
+  border-style: solid;
+}
+
+.key__tip {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%) rotate(-45deg);
+  transform-origin: center;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--ink-950);
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--paper-dim);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+.key:hover .key__tip,
+.key.is-dragging .key__tip {
+  opacity: 1;
+}
+
+/* Playhead */
+.timeline__playhead {
+  position: absolute;
+  top: var(--ruler-h);
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--amber), rgba(227, 168, 87, 0.25));
+  z-index: 5;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.timeline__playhead i {
+  position: absolute;
+  top: -1px;
+  left: -4px;
+  width: 9px;
+  height: 9px;
+  background: var(--amber);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.timeline__playhead::after {
+  content: attr(data-progress);
+  position: absolute;
+  top: -22px;
+  left: 6px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--amber);
+  background: var(--ink-950);
+  border: 1px solid rgba(227, 168, 87, 0.35);
+  border-radius: 3px;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+/* Range handles dragged on the ruler */
+.range-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  margin-left: -4px;
+  cursor: ew-resize;
+  z-index: 6;
+}
+
+.range-handle::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 3px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--amber);
+  opacity: 0.7;
+}
+
+.range-handle:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(227, 168, 87, 0.6);
+}
+
+@media (max-width: 820px) {
+  .timeline__body {
+    grid-template-columns: 108px minmax(0, 1fr);
+  }
+
+  .gutter-row__value {
+    display: none;
+  }
+}

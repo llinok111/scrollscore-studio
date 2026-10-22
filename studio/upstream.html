@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScrollScore — upstream AOS fixture</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        background: #12100d;
+        color: #f6ede1;
+        font-family: "Segoe UI", "PingFang SC", system-ui, sans-serif;
+      }
+      .fixture-head {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 12px 20px;
+        background: rgba(23, 19, 15, 0.92);
+        border-bottom: 1px solid #3a2e25;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        color: #c8b6a2;
+      }
+      .band {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 90vh;
+        padding: 40px 20px;
+      }
+      .card {
+        width: min(520px, 100%);
+        padding: 28px 30px;
+        border-radius: 16px;
+        border: 1px solid rgba(227, 168, 87, 0.28);
+        background: linear-gradient(150deg, rgba(227, 168, 87, 0.1), rgba(201, 97, 60, 0.05));
+      }
+      .card h2 {
+        margin: 0 0 10px;
+        font-family: Georgia, "Songti SC", serif;
+        font-size: 26px;
+        font-weight: 600;
+      }
+      .card p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #c8b6a2;
+      }
+      .probe {
+        width: 120px;
+        height: 120px;
+        border-radius: 14px;
+        background: linear-gradient(150deg, #e3a857, #c9613c);
+      }
+      code {
+        font-family: ui-monospace, Consolas, monospace;
+        font-size: 12px;
+        color: #f2c986;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fixture-head">
+      ScrollScore · upstream AOS fixture — 用于验证 <code>data-aos</code> 与
+      <code>data-aos-scrub</code> 的原始语义
+    </div>
+
+    <!-- Spacer so the classic trigger starts outside the viewport -->
+    <section class="band" style="min-height: 110vh"></section>
+
+    <!-- Classic binary AOS trigger -->
+    <section class="band">
+      <div class="card" id="aos-probe" data-aos="fade-up" data-aos-duration="300">
+        <h2>上游行为</h2>
+        <p>
+          这个卡片使用原版 <code>data-aos="fade-up"</code>。它只会在进入视口时加上
+          <code>aos-animate</code> class，不会随滚动连续插值。
+        </p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="probe" id="scrub-probe"
+        data-aos-scrub
+        data-aos-mode="page"
+        data-aos-range="0,1"
+        data-aos-track="opacity:0>1;y:300>0;scale:0.6>1"
+      ></div>
+    </section>
+
+    <section class="band">
+      <div class="card" id="scrub-card"
+        data-aos-scrub
+        data-aos-mode="page"
+        data-aos-range="0.2,0.8"
+        data-aos-ease="ease-out-cubic"
+        data-aos-track="clipX:0>100;x:-60>0"
+      >
+        <h2>连续插值</h2>
+        <p>
+          这个卡片使用 <code>data-aos-scrub</code>：滚动进度 20%–80% 之间，横向揭示与
+          位移连续变化，而不是一次性切换。
+        </p>
+      </div>
+    </section>
+
+    <section class="band" style="min-height: 120vh">
+      <div class="card">
+        <h2>尾部留白</h2>
+        <p>留出滚动空间，让上面的区间动画可以完整走完。</p>
+      </div>
+    </section>
+
+    <script type="module" src="./src/upstream-fixture.js"></script>
+  </body>
+</html>

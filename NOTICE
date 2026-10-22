@@ -1,0 +1,78 @@
+ScrollScore Studio
+==================
+
+This product is a derivative work of AOS (Animate On Scroll).
+
+Upstream project
+----------------
+  AOS (Animate On Scroll)
+  https://github.com/michalsnik/aos
+  Copyright (c) 2015 Michał Sajnóg
+  Licensed under the MIT License (see LICENSE, kept verbatim)
+
+Upstream commit this fork is based on
+-------------------------------------
+  branch: next
+  package version: 3.0.0-beta.6
+  full history retained (259 commits), see `git log`
+
+What was added by this fork
+---------------------------
+All files listed below are new and are licensed MIT,
+Copyright (c) 2026 the ScrollScore Studio authors.
+
+  src/js/scrub/easing.js        cubic-bezier solver, preset tables, sampling
+  src/js/scrub/keyframes.js     keyframe track model, evaluation, CSS composition
+  src/js/scrub/progress.js      element/page progress mapping, pin phase, range parsing
+  src/js/scrub/engine.js        rAF scheduler, read/write separation, diffed writes, telemetry
+  src/js/scrub/schema.js        project document validation and normalisation
+  src/js/scrub/attributes.js    data-aos-* declarative attribute parsing
+  src/js/scrub/index.js         public entry point
+  src/sass/_scrub.scss          scrub + pin + reduced-motion styles
+
+  studio/                       visual choreography studio (Vite app)
+    index.html, upstream.html
+    src/main.js, src/upstream-fixture.js
+    src/core/{store,exporters}.js
+    src/ui/{stage,timeline,inspector,layers,exportDialog}.js
+    src/styles/{tokens,app,timeline}.css
+    src/preview/content.js
+    tests/unit/*.test.js        (116 tests)
+    tests/e2e/*.spec.js         (26 tests, incl. performance)
+    scripts/{verify,visual-audit,probe,debug-scrub}.mjs
+    vite.config.js, playwright.config.js
+
+  docs/shots/                   verification screenshots and reports
+  UPSTREAM.md                   change log against upstream
+  README.md                     rewritten (upstream README preserved as README.upstream.md)
+
+What was modified in upstream files
+-----------------------------------
+  src/js/aos.js                 additive only:
+                                  - `scrub`, `scrubMode`, `respectReducedMotion` options
+                                  - new exports: scrub, scrubFromAttributes, getEngine, destroy
+                                  - one stylesheet import changed from default-import to
+                                    side-effect import (Vite 6 no longer exposes a default
+                                    export for CSS; upstream rollup extraction is unaffected)
+  src/sass/aos.scss             one added @import: 'scrub'
+
+Everything else under src/, cypress/ and demo/ is untouched.
+
+Trademarks and affiliation
+--------------------------
+This is not an official fork of AOS. It is not endorsed by, affiliated with, or
+sponsored by the upstream author. The name "AOS" appears only to identify the
+upstream project this work derives from.
+
+Third-party runtime dependencies carried over from upstream
+-----------------------------------------------------------
+  lodash.throttle  MIT
+  lodash.debounce  MIT
+
+Third-party build/test dependencies added by this fork
+------------------------------------------------------
+  vite             MIT
+  vitest           MIT
+  sass             MIT
+  @playwright/test Apache-2.0
+  pngjs            MIT

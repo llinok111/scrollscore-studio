@@ -8,3 +8,6 @@
 *.yml   text eol=lf
 # Don't diff or textually merge source maps
 *.map   binary
+# ScrollScore additions
+*.mjs   text eol=lf
+*.json  text eol=lf

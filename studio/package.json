@@ -1,0 +1,30 @@
+{
+  "name": "scrollscore-studio-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "ScrollScore Studio - visual scroll-driven motion choreographer built on AOS",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4180 --strictPort",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "verify": "node scripts/verify.mjs",
+    "audit": "node scripts/visual-audit.mjs",
+    "shots": "npm run build && npm run verify && npm run audit"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.1",
+    "jsdom": "^25.0.1",
+    "pngjs": "^7.0.0",
+    "sass": "^1.83.0",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "viewport": {
+    "w": 1600,
+    "h": 1000
+  },
+  "layers": 8,
+  "engine": {
+    "frames": 479,
+    "elapsed": 2196.2,
+    "gaps": {
+      "avg": 8.48,
+      "p50": 7,
+      "p95": 7.8,
+      "p99": 48.9,
+      "max": 111.5
+    },
+    "writes": 331,
+    "skips": 3501,
+    "longFrames": 0,
+    "tickAvgMs": 0.493,
+    "tickMaxMs": 2.6
+  },
+  "baseline": {
+    "elapsed": 1680.6,
+    "gaps": {
+      "avg": 7.02,
+      "p50": 7,
+      "p95": 7.3,
+      "p99": 7.6,
+      "max": 22.1
+    }
+  },
+  "isolatedTick": {
+    "samples": 400,
+    "p50": 0.1,
+    "p95": 0.8,
+    "max": 2.1
+  }
+}

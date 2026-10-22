@@ -4,7 +4,9 @@
  * made to animate elements on scroll in both directions
  * *******************************************************
  */
-import styles from './../sass/aos.scss';
+// Side-effect import: the bundle only needs the stylesheet injected, and the
+// default export form is no longer understood by modern bundlers (Vite 6).
+import './../sass/aos.scss';
 
 // Modules & helpers
 import throttle from 'lodash.throttle';
@@ -18,10 +20,23 @@ import prepare from './helpers/prepare';
 import elements from './helpers/elements';
 
 /**
+ * -------------------------------------------------------
+ * ScrollScore extension (added on top of upstream AOS)
+ * -------------------------------------------------------
+ * Upstream AOS is a binary trigger: an element either has `aos-animate` or it
+ * does not. The modules below add a continuous, progress-driven mode that
+ * coexists with the original behaviour. Nothing here is active unless the host
+ * opts in via `init({ scrub: true })`, `scrubFromAttributes()` or `scrub()`.
+ */
+import { createScrubEngine } from './scrub/engine';
+import { collectScrubNodes, readScrubAttributes } from './scrub/attributes';
+
+/**
  * Private variables
  */
 let $aosElements = [];
 let initialized = false;
+let scrubEngine = null;
 
 /**
  * Default options
@@ -41,12 +56,87 @@ let options = {
   useClassNames: false,
   disableMutationObserver: false,
   throttleDelay: 99,
-  debounceDelay: 50
+  debounceDelay: 50,
+  // ScrollScore additions (all opt-in, all default to upstream behaviour)
+  scrub: false,
+  scrubMode: 'raf',
+  respectReducedMotion: true
 };
 
 // Detect not supported browsers (<=IE9)
 // http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
 const isBrowserNotSupported = () => document.all && !window.atob;
+
+/**
+ * Lazily create the scrub engine. Kept lazy so that pages which never use the
+ * extension pay zero cost beyond a few hundred bytes of module code.
+ */
+const getEngine = function getEngine() {
+  if (!scrubEngine) {
+    scrubEngine = createScrubEngine({
+      mode: options.scrubMode,
+      respectReducedMotion: options.respectReducedMotion
+    });
+  }
+  return scrubEngine;
+};
+
+/**
+ * Register every `[data-aos-scrub]` node found in the document.
+ * Safe to call repeatedly: the engine replaces entries by id.
+ */
+const scrubFromAttributes = function scrubFromAttributes(root) {
+  const engine = getEngine();
+  const nodes = collectScrubNodes(root || document);
+  nodes.forEach(function(node, index) {
+    const config = readScrubAttributes(node);
+    engine.register({
+      id: node.getAttribute('data-aos-scrub-id') || `aos-scrub-${index}`,
+      node,
+      mode: config.mode,
+      range: config.range,
+      ease: config.ease,
+      offset: config.offset,
+      pin: config.pin,
+      tracks: config.tracks
+    });
+  });
+  engine.measure();
+  engine.tick();
+  engine.start();
+  return engine;
+};
+
+/**
+ * Register entries from a plain config object. `target` is a CSS selector so
+ * exported studio output can be pasted into any page unchanged.
+ *
+ *   AOS.scrub({ entries: [{ target: '#hero', tracks: { y: [...] } }] })
+ */
+const scrub = function scrub(config) {
+  const engine = getEngine();
+  const list = Array.isArray(config) ? config : (config && config.entries) || [];
+  list.forEach(function(item, i) {
+    if (!item || !item.target) return;
+    const nodes = Array.prototype.slice.call(document.querySelectorAll(item.target));
+    nodes.forEach(function(node, j) {
+      engine.register({
+        id: item.id ? `${item.id}__${j}` : `aos-scrub-cfg-${i}-${j}`,
+        node,
+        mode: item.mode,
+        range: item.range,
+        ease: item.ease,
+        offset: item.offset,
+        pin: item.pin,
+        tracks: item.tracks || {}
+      });
+    });
+  });
+  engine.measure();
+  engine.tick();
+  engine.start();
+  return engine;
+};
 
 const initializeScroll = function initializeScroll() {
   // Extend elements objects in $aosElements with their positions
@@ -63,6 +153,14 @@ const initializeScroll = function initializeScroll() {
       handleScroll($aosElements, options.once);
     }, options.throttleDelay)
   );
+
+  /**
+   * ScrollScore: start the continuous engine when requested. The upstream
+   * class-based path above keeps running untouched, so a page can mix both.
+   */
+  if (options.scrub) {
+    scrubFromAttributes();
+  }
 
   return $aosElements;
 };
@@ -221,11 +319,27 @@ const init = function init(settings) {
 };
 
 /**
+ * Tear down the scrub engine (added by ScrollScore).
+ * Upstream `AOS` has no destroy(), so this only releases extension resources.
+ */
+const destroy = function destroy() {
+  if (scrubEngine) {
+    scrubEngine.destroy();
+    scrubEngine = null;
+  }
+};
+
+/**
  * Export Public API
  */
 
 export default {
   init,
   refresh,
-  refreshHard
+  refreshHard,
+  // ScrollScore additions
+  scrub,
+  scrubFromAttributes,
+  getEngine,
+  destroy
 };

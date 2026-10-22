@@ -32,3 +32,11 @@ node_modules
 dist
 cypress/screenshots
 cypress/videos
+
+# ScrollScore additions
+studio/tests/e2e/.report.json
+studio/test-results/
+studio/playwright-report/
+
+# Verification evidence IS committed (docs/shots/*.png, verify-report.json,
+# layers/audit.json) so the numbers quoted in README.md stay auditable.

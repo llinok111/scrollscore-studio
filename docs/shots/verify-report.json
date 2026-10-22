@@ -1,0 +1,486 @@
+{
+  "url": "http://localhost:4180/",
+  "shots": [
+    {
+      "file": "01-scroll-000.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.2298,
+      "warmRatio": 0.0144,
+      "coolRatio": 0,
+      "meanLuma": 22.7,
+      "paletteSize": 283,
+      "tileInkRatio": [
+        0.256,
+        0.1717,
+        0.2886,
+        0.2132,
+        0.405,
+        0.1741,
+        0.287,
+        0.1698,
+        0.1022
+      ]
+    },
+    {
+      "file": "02-scroll-014.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.2412,
+      "warmRatio": 0.0144,
+      "coolRatio": 0,
+      "meanLuma": 23.63,
+      "paletteSize": 305,
+      "tileInkRatio": [
+        0.3064,
+        0.3142,
+        0.3182,
+        0.2132,
+        0.3729,
+        0.1586,
+        0.287,
+        0.1117,
+        0.0881
+      ]
+    },
+    {
+      "file": "03-scroll-030.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.2366,
+      "warmRatio": 0.0156,
+      "coolRatio": 0,
+      "meanLuma": 22.75,
+      "paletteSize": 293,
+      "tileInkRatio": [
+        0.4005,
+        0.5888,
+        0.3467,
+        0.1849,
+        0.0334,
+        0.0852,
+        0.2868,
+        0.1126,
+        0.0881
+      ]
+    },
+    {
+      "file": "04-scroll-046.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.1719,
+      "warmRatio": 0.0146,
+      "coolRatio": 0,
+      "meanLuma": 22.07,
+      "paletteSize": 287,
+      "tileInkRatio": [
+        0.2638,
+        0.1791,
+        0.2897,
+        0.2127,
+        0.0334,
+        0.0852,
+        0.2855,
+        0.1097,
+        0.087
+      ]
+    },
+    {
+      "file": "05-scroll-068.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.236,
+      "warmRatio": 0.0176,
+      "coolRatio": 0,
+      "meanLuma": 23.43,
+      "paletteSize": 310,
+      "tileInkRatio": [
+        0.3345,
+        0.3027,
+        0.2887,
+        0.2984,
+        0.3386,
+        0.0809,
+        0.2847,
+        0.107,
+        0.0874
+      ]
+    },
+    {
+      "file": "06-scroll-090.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.2098,
+      "warmRatio": 0.0154,
+      "coolRatio": 0,
+      "meanLuma": 22.57,
+      "paletteSize": 305,
+      "tileInkRatio": [
+        0.3602,
+        0.4731,
+        0.3215,
+        0.1706,
+        0.0072,
+        0.0745,
+        0.2846,
+        0.107,
+        0.0875
+      ]
+    },
+    {
+      "file": "07-export-dialog.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.2383,
+      "warmRatio": 0.0161,
+      "coolRatio": 0.0063,
+      "meanLuma": 14.58,
+      "paletteSize": 234,
+      "tileInkRatio": [
+        0.1537,
+        0.1846,
+        0.2599,
+        0.1475,
+        0.0859,
+        0.2533,
+        0.3304,
+        0.3725,
+        0.3571
+      ]
+    },
+    {
+      "file": "08-tablet.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.2393,
+      "warmRatio": 0.0169,
+      "coolRatio": 0,
+      "meanLuma": 22.48,
+      "paletteSize": 291,
+      "tileInkRatio": [
+        0.3078,
+        0.5113,
+        0.3972,
+        0.1894,
+        0.0334,
+        0.0801,
+        0.2824,
+        0.2056,
+        0.1448
+      ]
+    },
+    {
+      "file": "09-phone.png",
+      "width": 1600,
+      "height": 1000,
+      "inkRatio": 0.1922,
+      "warmRatio": 0.017,
+      "coolRatio": 0,
+      "meanLuma": 20.64,
+      "paletteSize": 291,
+      "tileInkRatio": [
+        0.2308,
+        0.3336,
+        0.2784,
+        0.1731,
+        0.0369,
+        0.0693,
+        0.2716,
+        0.1977,
+        0.1377
+      ]
+    },
+    {
+      "file": "10-vp-1100.png",
+      "width": 1100,
+      "height": 820,
+      "inkRatio": 0.2486,
+      "warmRatio": 0.022,
+      "coolRatio": 0,
+      "meanLuma": 23.5,
+      "paletteSize": 268,
+      "tileInkRatio": [
+        0.2255,
+        0.4255,
+        0.4051,
+        0.4282,
+        0.0688,
+        0.1074,
+        0.2347,
+        0.2288,
+        0.1121
+      ]
+    },
+    {
+      "file": "11-vp-820.png",
+      "width": 820,
+      "height": 900,
+      "inkRatio": 0.2301,
+      "warmRatio": 0.0176,
+      "coolRatio": 0,
+      "meanLuma": 22.33,
+      "paletteSize": 240,
+      "tileInkRatio": [
+        0.3531,
+        0.4899,
+        0.4506,
+        0.0433,
+        0.0371,
+        0.0433,
+        0.2447,
+        0.2571,
+        0.1519
+      ]
+    }
+  ],
+  "dom": {
+    "viewport": {
+      "w": 1600,
+      "h": 1000
+    },
+    "regions": {
+      "toolbar": {
+        "x": 0,
+        "y": 0,
+        "w": 1600,
+        "h": 58
+      },
+      "panelLeft": {
+        "x": 0,
+        "y": 58,
+        "w": 264,
+        "h": 663
+      },
+      "stage": {
+        "x": 264,
+        "y": 58,
+        "w": 1008,
+        "h": 663
+      },
+      "panelRight": {
+        "x": 1272,
+        "y": 58,
+        "w": 328,
+        "h": 663
+      },
+      "timeline": {
+        "x": 0,
+        "y": 722,
+        "w": 1600,
+        "h": 248
+      },
+      "statusbar": {
+        "x": 0,
+        "y": 970,
+        "w": 1600,
+        "h": 30
+      }
+    },
+    "regionsOutside": [],
+    "layerCount": 8,
+    "layers": [
+      {
+        "id": "ly-mvj3lrlt-1",
+        "type": "badge",
+        "box": {
+          "x": 346.8,
+          "y": 247.9,
+          "w": 123.9,
+          "h": 22.5
+        },
+        "visible": true,
+        "opacity": "0"
+      },
+      {
+        "id": "ly-mvj3lrlu-2",
+        "type": "heading",
+        "box": {
+          "x": 306.8,
+          "y": 223.4,
+          "w": 470.8,
+          "h": 127.6
+        },
+        "visible": true,
+        "opacity": "1"
+      },
+      {
+        "id": "ly-mvj3lrlu-3",
+        "type": "text",
+        "box": {
+          "x": 346.8,
+          "y": 430.1,
+          "w": 356.9,
+          "h": 72.9
+        },
+        "visible": true,
+        "opacity": "0"
+      },
+      {
+        "id": "ly-mvj3lrlu-4",
+        "type": "panel",
+        "box": {
+          "x": 378.9,
+          "y": 474.5,
+          "w": 292.7,
+          "h": 115.8
+        },
+        "visible": true,
+        "opacity": "0.2"
+      },
+      {
+        "id": "ly-mvj3lrlu-5",
+        "type": "image",
+        "box": {
+          "x": 748.7,
+          "y": 440,
+          "w": 397.5,
+          "h": 301.9
+        },
+        "visible": true,
+        "opacity": "1"
+      },
+      {
+        "id": "ly-mvj3lrlu-6",
+        "type": "heading",
+        "box": {
+          "x": 341.3,
+          "y": 797.4,
+          "w": 436.3,
+          "h": 171.3
+        },
+        "visible": true,
+        "opacity": "0"
+      },
+      {
+        "id": "ly-mvj3lrlu-7",
+        "type": "text",
+        "box": {
+          "x": 346.8,
+          "y": 976.9,
+          "w": 356.9,
+          "h": 72.9
+        },
+        "visible": true,
+        "opacity": "0"
+      },
+      {
+        "id": "ly-mvj3lrlu-8",
+        "type": "panel",
+        "box": {
+          "x": 306.8,
+          "y": 1007.1,
+          "w": 779.1,
+          "h": 159.5
+        },
+        "visible": true,
+        "opacity": "1"
+      }
+    ],
+    "layersWithZeroSize": 0,
+    "stage": {
+      "scrollHeight": 1647,
+      "clientHeight": 591,
+      "docHeight": 1646.53125,
+      "scrollable": true
+    },
+    "timeline": {
+      "rows": 3,
+      "keys": 6,
+      "gutterRows": 3
+    },
+    "overflowX": false,
+    "fontLoaded": "Inter, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif"
+  },
+  "interactions": {
+    "scrubSamples": [
+      {
+        "p": 0,
+        "y": 120
+      },
+      {
+        "p": 0.15,
+        "y": 68.414
+      },
+      {
+        "p": 0.3,
+        "y": -2.442
+      },
+      {
+        "p": 0.45,
+        "y": -72.852
+      },
+      {
+        "p": 0.6,
+        "y": -120
+      }
+    ],
+    "selectedLayer": "数据卡",
+    "keyframeDrag": {
+      "before": 0,
+      "after": 0.1176378635760865
+    },
+    "undo": {
+      "restored": 0,
+      "expected": 0
+    },
+    "exportTabs": {
+      "css": {
+        "len": 6288,
+        "meta": "8 图层 · 20 轨道 · 41 关键帧 · 6.2 KB"
+      },
+      "js": {
+        "len": 11170,
+        "meta": "8 图层 · 20 轨道 · 41 关键帧 · 10.9 KB"
+      },
+      "json": {
+        "len": 9012,
+        "meta": "8 图层 · 20 轨道 · 41 关键帧 · 9.2 KB"
+      },
+      "html": {
+        "len": 11697,
+        "meta": "8 图层 · 20 轨道 · 41 关键帧 · 11.8 KB"
+      }
+    },
+    "preset": {
+      "before": 3,
+      "after": 3,
+      "props": [
+        "letterSpacing",
+        "opacity",
+        "y"
+      ],
+      "pin": [
+        0.05,
+        0.45
+      ]
+    }
+  },
+  "errors": [],
+  "performance": {
+    "frames": 240,
+    "elapsed": 1887.9,
+    "avgGap": 7.87,
+    "p50": 7,
+    "p95": 14,
+    "p99": 14.4,
+    "maxGap": 41.7,
+    "tickAvgMs": 0.558,
+    "tickMaxMs": 5.6,
+    "writes": 399,
+    "skips": 3433,
+    "longFrames": 0
+  },
+  "summary": {
+    "shots": 11,
+    "inkRatioRange": [
+      0.1719,
+      0.2486
+    ],
+    "paletteRange": [
+      234,
+      310
+    ],
+    "warmRatioAvg": 0.0165,
+    "errors": []
+  }
+}

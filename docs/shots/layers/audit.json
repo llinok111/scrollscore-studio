@@ -1,0 +1,226 @@
+{
+  "layers": [
+    {
+      "id": "ly-mvj3m5c5-1",
+      "name": "徽标",
+      "type": "badge",
+      "tracks": [
+        "opacity",
+        "y"
+      ],
+      "range": [
+        0.02,
+        0.16
+      ],
+      "pin": null,
+      "box": {
+        "w": 123.9,
+        "h": 22.5
+      },
+      "size": "250x48",
+      "paletteSize": 35,
+      "meanLuma": 34.4,
+      "dynamicRange": 183.2
+    },
+    {
+      "id": "ly-mvj3m5c6-2",
+      "name": "主标题",
+      "type": "heading",
+      "tracks": [
+        "clipX",
+        "x",
+        "letterSpacing"
+      ],
+      "range": [
+        0.05,
+        0.3
+      ],
+      "pin": null,
+      "box": {
+        "w": 470.8,
+        "h": 127.6
+      },
+      "size": "944x258",
+      "paletteSize": 62,
+      "meanLuma": 40,
+      "dynamicRange": 218.5
+    },
+    {
+      "id": "ly-mvj3m5c6-3",
+      "name": "导语",
+      "type": "text",
+      "tracks": [
+        "opacity",
+        "y"
+      ],
+      "range": [
+        0.12,
+        0.34
+      ],
+      "pin": null,
+      "box": {
+        "w": 356.9,
+        "h": 72.9
+      },
+      "size": "716x148",
+      "paletteSize": 35,
+      "meanLuma": 41.6,
+      "dynamicRange": 164.8
+    },
+    {
+      "id": "ly-mvj3m5c6-4",
+      "name": "数据卡",
+      "type": "panel",
+      "tracks": [
+        "scale",
+        "blur",
+        "opacity"
+      ],
+      "range": [
+        0.16,
+        0.4
+      ],
+      "pin": null,
+      "box": {
+        "w": 356.9,
+        "h": 141.2
+      },
+      "size": "716x284",
+      "paletteSize": 63,
+      "meanLuma": 32.9,
+      "dynamicRange": 218.5
+    },
+    {
+      "id": "ly-mvj3m5c6-5",
+      "name": "主视觉",
+      "type": "image",
+      "tracks": [
+        "y",
+        "scale",
+        "rotate"
+      ],
+      "range": [
+        0.04,
+        0.55
+      ],
+      "pin": null,
+      "box": {
+        "w": 366.4,
+        "h": 272.7
+      },
+      "size": "734x546",
+      "paletteSize": 11,
+      "meanLuma": 32,
+      "dynamicRange": 56.3
+    },
+    {
+      "id": "ly-mvj3m5c6-6",
+      "name": "第二章标题",
+      "type": "heading",
+      "tracks": [
+        "rotate",
+        "y",
+        "opacity"
+      ],
+      "range": [
+        0.42,
+        0.62
+      ],
+      "pin": null,
+      "box": {
+        "w": 425.3,
+        "h": 127.6
+      },
+      "size": "854x256",
+      "paletteSize": 40,
+      "meanLuma": 33.1,
+      "dynamicRange": 218.5
+    },
+    {
+      "id": "ly-mvj3m5c6-7",
+      "name": "正文",
+      "type": "text",
+      "tracks": [
+        "opacity",
+        "y"
+      ],
+      "range": [
+        0.5,
+        0.68
+      ],
+      "pin": null,
+      "box": {
+        "w": 356.9,
+        "h": 72.9
+      },
+      "size": "716x148",
+      "paletteSize": 33,
+      "meanLuma": 35.7,
+      "dynamicRange": 164.8
+    },
+    {
+      "id": "ly-mvj3m5c6-8",
+      "name": "收尾卡",
+      "type": "panel",
+      "tracks": [
+        "clipX",
+        "x"
+      ],
+      "range": [
+        0.62,
+        0.86
+      ],
+      "pin": null,
+      "box": {
+        "w": 779.1,
+        "h": 159.5
+      },
+      "size": "1560x322",
+      "paletteSize": 58,
+      "meanLuma": 34,
+      "dynamicRange": 218.5
+    }
+  ],
+  "contrast": [
+    {
+      "type": "badge",
+      "color": "rgb(242, 201, 134)",
+      "ratio": 11.86
+    },
+    {
+      "type": "heading",
+      "color": "rgb(246, 237, 225)",
+      "ratio": 15.94
+    },
+    {
+      "type": "text",
+      "color": "rgb(200, 182, 162)",
+      "ratio": 9.39
+    },
+    {
+      "type": "panel",
+      "color": "rgb(246, 237, 225)",
+      "ratio": 15.94
+    },
+    {
+      "type": "image",
+      "color": "rgb(246, 237, 225)",
+      "ratio": 15.94
+    },
+    {
+      "type": "heading",
+      "color": "rgb(246, 237, 225)",
+      "ratio": 15.94
+    },
+    {
+      "type": "text",
+      "color": "rgb(200, 182, 162)",
+      "ratio": 9.39
+    },
+    {
+      "type": "panel",
+      "color": "rgb(246, 237, 225)",
+      "ratio": 15.94
+    }
+  ]
+}

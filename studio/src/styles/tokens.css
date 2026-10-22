@@ -1,0 +1,171 @@
+/* ---------------------------------------------------------------------------
+   ScrollScore Studio — design tokens
+   Warm editorial dark surface: espresso ink, amber accent, terracotta counter.
+   Deliberately no cold-blue primary; blue is reserved for informational chips.
+   --------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: dark;
+
+  /* Ink ladder */
+  --ink-950: #0d0b09;
+  --ink-900: #12100d;
+  --ink-860: #17130f;
+  --ink-820: #1c1712;
+  --ink-780: #221b16;
+  --ink-740: #29211a;
+  --ink-700: #302620;
+
+  /* Hairlines */
+  --line: #3a2e25;
+  --line-soft: #2a211a;
+  --line-strong: #4a3a2c;
+
+  /* Paper (text) */
+  --paper: #f6ede1;
+  --paper-dim: #c8b6a2;
+  --paper-mute: #8e7c69;
+  --paper-faint: #6a5b4c;
+
+  /* Accents */
+  --amber: #e3a857;
+  --amber-soft: #f2c986;
+  --amber-deep: #b9803a;
+  --terracotta: #c9613c;
+  --terracotta-soft: #e0805c;
+  --sage: #86a37a;
+  --blue: #7c9cbb;
+
+  /* Semantic */
+  --ok: var(--sage);
+  --warn: var(--amber);
+  --danger: var(--terracotta);
+  --info: var(--blue);
+
+  /* Elevation */
+  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 18px 48px rgba(0, 0, 0, 0.55);
+
+  /* Geometry */
+  --r-sm: 6px;
+  --r-md: 9px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+
+  /* Type */
+  --font-ui: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Georgia, "Songti SC", serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  /* Rhythm */
+  --gap-1: 4px;
+  --gap-2: 8px;
+  --gap-3: 12px;
+  --gap-4: 16px;
+  --gap-5: 24px;
+
+  --toolbar-h: 58px;
+  --timeline-h: 248px;
+  --statusbar-h: 30px;
+  --panel-left-w: 264px;
+  --panel-right-w: 328px;
+
+  /* Design-sheet scale for the stage preview (set by JS). */
+  --ss-scale: 1;
+  --stage-w: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 78% -12%, rgba(227, 168, 87, 0.09), transparent 62%),
+    radial-gradient(900px 600px at 8% 108%, rgba(201, 97, 60, 0.07), transparent 60%),
+    var(--ink-900);
+  color: var(--paper);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(227, 168, 87, 0.3);
+  color: var(--paper);
+}
+
+/* Scrollbars: thin, warm, unobtrusive */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #5b4736;
+  background-clip: padding-box;
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScrollScore Studio — 滚动驱动动效编排台</title>
+    <meta
+      name="description"
+      content="ScrollScore Studio：把 AOS 的二值滚动触发升级为以滚动进度为时间轴的连续编排工作台，可导出 CSS animation-timeline 与独立 JS runtime。"
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2317130f'/%3E%3Cpath d='M8 21c4 0 4-10 8-10s4 10 8 10' stroke='%23e3a857' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="toolbar">
+        <div class="brand">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path d="M4 17c3.2 0 3.2-10 6.4-10S13.6 17 16.8 17 20 11 20 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span class="brand__text">ScrollScore<em>Studio</em></span>
+        </div>
+
+        <div class="toolbar__group" role="group" aria-label="工程">
+          <button class="btn" data-action="new" title="新建工程">新建</button>
+          <button class="btn" data-action="import" title="导入工程 JSON">导入</button>
+          <button class="btn" data-action="save" title="下载工程 JSON">存盘</button>
+        </div>
+
+        <div class="toolbar__group" role="group" aria-label="历史">
+          <button class="btn btn--icon" data-action="undo" title="撤销 (Ctrl+Z)" aria-label="撤销">
+            <svg viewBox="0 0 20 20" width="16" height="16"><path d="M7 5 3 9l4 4M3 9h8a5 5 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn btn--icon" data-action="redo" title="重做 (Ctrl+Shift+Z)" aria-label="重做">
+            <svg viewBox="0 0 20 20" width="16" height="16"><path d="M13 5l4 4-4 4M17 9H9a5 5 0 0 0 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="toolbar__group toolbar__group--seg" role="group" aria-label="断点">
+          <button class="seg is-active" data-breakpoint="1280" title="桌面 1280">桌面</button>
+          <button class="seg" data-breakpoint="834" title="平板 834">平板</button>
+          <button class="seg" data-breakpoint="390" title="手机 390">手机</button>
+        </div>
+
+        <div class="toolbar__spacer"></div>
+
+        <div class="toolbar__group" role="group" aria-label="播放">
+          <label class="switch" title="播放时自动滚动预览">
+            <input type="checkbox" id="autoplay" />
+            <span>自动播放</span>
+          </label>
+          <button class="btn" data-action="reset-scroll" title="回到顶部">归零</button>
+        </div>
+
+        <button class="btn btn--primary" data-action="export" title="导出代码">导出代码</button>
+      </header>
+
+      <main class="workspace">
+        <aside class="panel panel--left" id="panel-left">
+          <div class="panel__head">
+            <h2>图层</h2>
+            <button class="btn btn--tiny" data-action="add-layer" title="添加图层">+ 添加</button>
+          </div>
+          <ul class="layer-list" id="layer-list" role="listbox" aria-label="图层列表"></ul>
+
+          <div class="panel__head panel__head--sub">
+            <h2>动效预设</h2>
+          </div>
+          <div class="preset-grid" id="preset-grid"></div>
+        </aside>
+
+        <section class="stage" aria-label="滚动预览舞台">
+          <div class="stage__bar">
+            <span class="stage__label" id="stage-size">1280 × 800</span>
+            <span class="stage__hint">在框内滚动 → 时间轴与图层实时联动</span>
+            <span class="stage__progress"><b id="stage-percent">0</b>%</span>
+          </div>
+          <div class="stage__frame" id="stage-frame">
+            <div class="stage__scroll" id="stage-scroll">
+              <div class="stage__doc" id="stage-doc"></div>
+            </div>
+            <div class="stage__guide stage__guide--a" aria-hidden="true"><span>起</span></div>
+            <div class="stage__guide stage__guide--b" aria-hidden="true"><span>止</span></div>
+          </div>
+        </section>
+
+        <aside class="panel panel--right" id="panel-right">
+          <div class="panel__head">
+            <h2>属性</h2>
+            <span class="panel__badge" id="inspector-target">未选中</span>
+          </div>
+          <div class="inspector" id="inspector"></div>
+        </aside>
+      </main>
+
+      <footer class="timeline" aria-label="滚动时间轴">
+        <div class="timeline__head">
+          <div class="timeline__title">
+            <h2>滚动时间轴</h2>
+            <span class="timeline__sub" id="timeline-sub">0 – 100% 滚动进度</span>
+          </div>
+          <div class="timeline__actions">
+            <button class="btn btn--tiny" data-action="add-key" title="在播放头处为选中属性添加关键帧">+ 关键帧</button>
+            <button class="btn btn--tiny" data-action="clear-keys" title="清空选中图层的全部轨道">清空轨道</button>
+          </div>
+        </div>
+        <div class="timeline__body" id="timeline-body">
+          <div class="timeline__gutter" id="timeline-gutter"></div>
+          <div class="timeline__canvas" id="timeline-canvas">
+            <div class="timeline__ruler" id="timeline-ruler"></div>
+            <div class="timeline__tracks" id="timeline-tracks"></div>
+            <div class="timeline__playhead" id="timeline-playhead"><i></i></div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="statusbar">
+        <span class="statusbar__item"><i class="dot"></i><span id="status-fps">—</span></span>
+        <span class="statusbar__item">帧耗时 <b id="status-frame">—</b> ms</span>
+        <span class="statusbar__item">写入 <b id="status-writes">0</b></span>
+        <span class="statusbar__item">跳过重复写入 <b id="status-skips">0</b></span>
+        <span class="statusbar__item">活跃轨道 <b id="status-tracks">0</b></span>
+        <span class="statusbar__spacer"></span>
+        <span class="statusbar__item statusbar__item--muted">基于 AOS (MIT) · ScrollScore 扩展</span>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+    <div class="dialog" id="export-dialog" hidden>
+      <div class="dialog__backdrop" data-action="close-export"></div>
+      <div class="dialog__panel" role="dialog" aria-modal="true" aria-labelledby="export-title">
+        <header class="dialog__head">
+          <h2 id="export-title">导出</h2>
+          <button class="btn btn--icon" data-action="close-export" aria-label="关闭">
+            <svg viewBox="0 0 20 20" width="16" height="16"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+        </header>
+        <nav class="tabs" id="export-tabs">
+          <button class="tab is-active" data-tab="css">纯 CSS</button>
+          <button class="tab" data-tab="js">JS runtime</button>
+          <button class="tab" data-tab="json">工程 JSON</button>
+          <button class="tab" data-tab="html">独立 HTML</button>
+        </nav>
+        <div class="dialog__body">
+          <p class="dialog__note" id="export-note"></p>
+          <pre class="code" id="export-code"></pre>
+        </div>
+        <footer class="dialog__foot">
+          <span class="dialog__meta" id="export-meta"></span>
+          <button class="btn" data-action="copy-export">复制</button>
+          <button class="btn btn--primary" data-action="download-export">下载</button>
+        </footer>
+      </div>
+    </div>
+
+    <input type="file" id="import-input" accept="application/json,.json" hidden />
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+// ---------------------------------------------------------------------------
+// ScrollScore extension styles
+// Added on top of upstream AOS. Nothing here affects the class-driven
+// `[data-aos]` behaviour; these rules only apply to scrub-enabled nodes.
+// ---------------------------------------------------------------------------
+
+// Compositor hints. Applied by the engine at runtime as well, but declaring it
+// here means the hint is present on first paint (no first-frame jank).
+[data-aos-scrub] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+// Pin / sticky chapter scaffolding.
+//   .aos-pin            outer spacer, height = 100vh + pinned scroll distance
+//   .aos-pin__viewport  sticky viewport-height stage
+//   .aos-pin__content   the element that actually gets scrubbed
+.aos-pin {
+  position: relative;
+  width: 100%;
+}
+
+.aos-pin__viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+}
+
+.aos-pin__content {
+  will-change: transform, opacity;
+}
+
+// The studio overlays its own rulers; production pages do not need them.
+.aos-scrub-debug {
+  outline: 1px dashed rgba(227, 168, 87, 0.55);
+  outline-offset: 2px;
+}
+
+// Honour the user's motion preference. The engine already snaps to the resting
+// keyframe in this mode; this block makes the intent explicit in CSS too, so
+// statically exported pages degrade correctly without any JavaScript.
+@media (prefers-reduced-motion: reduce) {
+  [data-aos-scrub],
+  .aos-pin__content {
+    will-change: auto;
+    transition: none !important;
+    animation: none !important;
+  }
+}
